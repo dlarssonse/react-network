@@ -13,17 +13,6 @@ npm install --save @dlarssonse/react-network
 ## Usage
 
 ```tsx
-import * as React from 'react'
-
-import MyComponent from '@dlarssonse/react-network'
-
-class Example extends React.Component {
-  render () {
-    return (
-      <MyComponent />
-    )
-  }
-}
 ```
 
 ## License

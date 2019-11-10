@@ -1,6 +1,6 @@
-import typescript from 'rollup-plugin-typescript2'
+import typescript from 'rollup-plugin-typescript3'
 import commonjs from 'rollup-plugin-commonjs'
-import external from 'rollup-plugin-peer-deps-external'
+//import external from 'rollup-plugin-peer-deps-external'
 // import postcss from 'rollup-plugin-postcss-modules'
 import postcss from 'rollup-plugin-postcss'
 import resolve from 'rollup-plugin-node-resolve'
@@ -26,7 +26,7 @@ export default {
     }
   ],
   plugins: [
-    external(),
+    //external(),
     postcss({
       modules: true
     }),

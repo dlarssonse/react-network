@@ -1,23 +1,49 @@
+import { AxiosResponse, AxiosError } from 'axios';
+
+
 /**
- * @class ExampleComponent
+ * 
  */
+export interface IServiceError {
+  name: string;
+  message: string;
+  response?: AxiosResponse<any> | undefined,
+  request?: any,
+  code?: string | undefined,
+  stack?: string | undefined,
+  config?: any,
+  isAxiosError?: boolean | undefined,
+}
 
-import * as React from 'react'
-
-import styles from './styles.css'
-
-export type Props = { text: string }
-
-export default class ExampleComponent extends React.Component<Props> {
-  render() {
-    const {
-      text
-    } = this.props
-
-    return (
-      <div className={styles.test}>
-        Example Component: {text}
-      </div>
-    )
+/**
+ * 
+ * @param error 
+ * @param response 
+ */
+export function ServiceError(error: Error | AxiosError<any>, response?: any): IServiceError {
+  return {
+    response,
+    ...error
   }
 }
+
+/**
+ * 
+ * @param response 
+ * @param error 
+ */
+export const handleAxoiosResponse = (response: AxiosResponse<any> | null, error?: AxiosError<any> | null) => {
+  return error ? { error: ServiceError(error) } :
+    response === null ? { error: ServiceError(new Error('response is empty')) }:
+    response.status !== 200 ? { error: ServiceError(new Error('response code is ' + response.status + ' not 200 as expected'), {  ...response }) } :
+    { data: Object.assign({}, response.data), error: null };
+}
+
+/**
+ * 
+ * @param promise 
+ */
+export const unboxAxios = (promise: Promise<AxiosResponse<any>>) => promise.then(
+  (response: AxiosResponse<any>) => ({ response, error: null }), 
+  (error: AxiosError<any> | undefined) => ({ response: null, error })
+);
