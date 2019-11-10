@@ -2,12 +2,12 @@
 
 > 
 
-[![NPM](https://img.shields.io/npm/v/@dlarssonse/react-network.svg)](https://www.npmjs.com/package/@dlarssonse/react-network) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/@dlarsson-se/react-network.svg)](https://www.npmjs.com/package/@dlarsson-se/react-network) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-npm install --save @dlarssonse/react-network
+npm install --save @dlarsson-se/react-network
 ```
 
 ## Usage
