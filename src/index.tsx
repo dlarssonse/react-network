@@ -1,6 +1,5 @@
 import { AxiosResponse, AxiosError } from 'axios';
 
-
 /**
  * 
  */
@@ -35,9 +34,9 @@ export const handleAxiosResponse = ({ response, error }: { response: AxiosRespon
   return error ? { error: ServiceError(error) } :
     response === null ? { error: ServiceError(new Error('response is empty')) }:
     response.status !== 200 ? { error: ServiceError(new Error('response code is ' + response.status + ' not 200 as expected'), {  ...response }) } :
-    { data: Object.assign({}, response.data), error: null };
+    { data: response.data, error: null };
 }
-//export const handleAxoiosResponse = (response: AxiosResponse<any> | null, error?: AxiosError<any> | null) => {
+
 
 /**
  * 

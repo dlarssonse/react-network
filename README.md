@@ -17,4 +17,4 @@ npm install --save @dlarsson-se/react-network
 
 ## License
 
-MIT © [dlarssonse](https://github.com/dlarssonse)
+ISC © [dlarssonse](https://github.com/dlarssonse)
