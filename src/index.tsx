@@ -37,6 +37,16 @@ export const handleAxiosResponse = ({ response, error }: { response: AxiosRespon
     { data: response.data, error: null };
 }
 
+/**
+ * 
+ * @param param0 response: AxiosResponse<any> | null, error?: AxiosError<any> | null
+ */
+export const handleAxiosGraphQLResponse = ({ response, error, type }: { response: AxiosResponse<any> | null, error?: AxiosError<any> | null, type: string }) => {
+  return error ? { error: ServiceError(error), items: 0 } :
+    response === null ? { error: ServiceError(new Error('response is empty')), items: 0 }:
+    response.status !== 200 ? { error: ServiceError(new Error('response code is ' + response.status + ' not 200 as expected'), {  ...response }), items: 0 } :
+    { data: response.data.data[type], error: null, items: response.headers['x-items-count'] ? Number(response.headers['x-items-count']) : 0 };
+}
 
 /**
  * 
