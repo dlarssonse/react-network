@@ -1,4 +1,5 @@
 import { AxiosResponse, AxiosError } from 'axios';
+import { isArray } from 'util';
 
 /**
  * 
@@ -19,7 +20,16 @@ export interface IServiceError {
  * @param error 
  * @param response 
  */
-export function ServiceError(error: Error | AxiosError<any>, response?: any): IServiceError {
+export function ServiceError(error: Error | Error[] | AxiosError<any>, response?: any): IServiceError {
+
+  // Ignore array of errors and only return the first error.
+  if(isArray(error)) {
+    return {
+      response,
+      ...error[0]
+    }
+  }
+
   return {
     response,
     ...error
@@ -45,6 +55,7 @@ export const handleAxiosGraphQLResponse = ({ response, error, type }: { response
   return error ? { error: ServiceError(error), items: 0 } :
     response === null ? { error: ServiceError(new Error('response is empty')), items: 0 }:
     response.status !== 200 ? { error: ServiceError(new Error('response code is ' + response.status + ' not 200 as expected'), {  ...response }), items: 0 } :
+    response.data.errors ? { error: ServiceError(response.data.errors, { ...response }), items: 0} :
     { data: response.data.data[type], error: null, items: response.headers['x-items-count'] ? Number(response.headers['x-items-count']) : 0 };
 }
 
