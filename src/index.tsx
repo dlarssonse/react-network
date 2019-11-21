@@ -41,10 +41,10 @@ export function ServiceError(error: Error | Error[] | AxiosError<any>, response?
  * @param param0 response: AxiosResponse<any> | null, error?: AxiosError<any> | null
  */
 export const handleAxiosResponse = ({ response, error }: { response: AxiosResponse<any> | null, error?: AxiosError<any> | null }) => {
-  return error ? { error: ServiceError(error) } :
-    response === null ? { error: ServiceError(new Error('response is empty')) }:
-    response.status !== 200 ? { error: ServiceError(new Error('response code is ' + response.status + ' not 200 as expected'), {  ...response }) } :
-    { data: response.data, error: null };
+  return error ? { error: ServiceError(error), items: 0 } :
+    response === null ? { error: ServiceError(new Error('response is empty')), items: 0 }:
+    response.status !== 200 ? { error: ServiceError(new Error('response code is ' + response.status + ' not 200 as expected'), {  ...response }), items: 0 } :
+    { data: response.data, error: null, items: response.headers['x-items-count'] ? Number(response.headers['x-items-count']) : 0 };
 }
 
 /**
