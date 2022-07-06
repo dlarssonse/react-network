@@ -1,6 +1,6 @@
 {
   "name": "@dlarsson-se/react-network",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Helper functions for axois to handle networking",
   "author": "David Larsson <dlarsson.se@gmail.com> (https://www.dlarsson.se)",
   "license": "ISC",
